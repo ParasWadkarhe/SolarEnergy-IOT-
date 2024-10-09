@@ -29,9 +29,6 @@ bool pumpState = LOW;
 bool cleaningState = LOW;
 int currentAngle = 90; // Start at a neutral position
 
-// LDR Sensitivity Calibration
-const int ldrCalibrationFactor = 50; // Adjust this value based on testing
-
 // Create Servo objects
 Servo servo1; // Film rotation servo
 
@@ -96,9 +93,6 @@ void loop() {
     int ldrValue1 = analogRead(ldrPin1);
     int ldrValue2 = analogRead(ldrPin2);
 
-    // Apply the calibration factor to one of the LDRs
-    ldrValue2 += ldrCalibrationFactor; // Compensate for sensitivity differences
-
     // Calculate the difference between the LDR values
     int ldrDifference = ldrValue1 - ldrValue2;
 
@@ -127,7 +121,7 @@ void loop() {
 
   lcd.setCursor(0, 1);
   lcd.print("I: ");
-  lcd.print(current*voltage*(-60), 2); // Print current with 2 decimal places
+  lcd.print(current, 2); // Print current with 2 decimal places
   lcd.print(" mA");
 
   // Debugging output to the serial monitor
